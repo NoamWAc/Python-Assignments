@@ -3,7 +3,7 @@ import random
 #generates a random number from 1 to 20
 game_num = random.randrange(1,20) 
 
-#asks user for their guess and converts to int
+#asks user for their guess and converts input to int
 guessed_num = int(input("Enter your guess of which integer between 1-20 was generated! ")); 
 
 if  guessed_num == game_num:
@@ -17,6 +17,6 @@ else:
     #so the user can see what they were guessing against
     #and then exit the program
     print("Your guess was too low!")
-    print("The number was ", game_num, "!")
+    print("The number was ", game_num)
     print("Thanks for playing!")
     exit (0);
