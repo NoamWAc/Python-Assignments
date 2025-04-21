@@ -3,11 +3,10 @@
 import math
 import sys
 
-# Ask the user for the radius
-##radius = float(input("Enter the radius of the circle: "))
-radius = sys.argv[1]
+radius = sys.argv[1] # Get argument
+
 try:
-    radius = float(radius) # Convert the input to a float
+    radius = float(radius) # Convert the argument to a float, exit program if can't convert
 except ValueError:
     print("Invalid input. Please enter a numeric value for the radius.")
     sys.exit(1)
