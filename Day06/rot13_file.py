@@ -10,7 +10,7 @@ def get_unique_filename(base):
     name, ext = os.path.splitext(base)
     i = 1
     while True:
-        new_name = f"{name} ({i}){ext}"
+        new_name = f"{name}({i}){ext}"
         if not os.path.exists(new_name):
             return new_name
         i += 1
@@ -18,10 +18,13 @@ def get_unique_filename(base):
 src = sys.argv[1]
 
 # Determine output file name
-if src.endswith('.rot13'):
-    target = src[:-7]  # remove '.rot13'
+name, ext = os.path.splitext(src)
+if name.endswith('.rot13'):
+    # remove '.rot13' before the extension
+    target = name[:-6] + ext
 else:
-    target = src + '.rot13'
+    # add '.rot13' before the extension
+    target = name + '.rot13' + ext
 
 # Make sure we don't overwrite an existing file
 target = get_unique_filename(target)
@@ -36,7 +39,7 @@ except UnicodeDecodeError:
 with open(target, 'w', encoding='utf-8') as f:
     f.write(codecs.encode(content, 'rot_13'))
 
-
+#Thiscould be improved also by first creating a string file, then adding into the get_unique_filename function the ability to compare your string to the similarly named file, and if it's identical then say it already exists.
 
 
 

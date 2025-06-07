@@ -1,18 +1,12 @@
 import sys
-import os
 
-# In addition to its ability to allow users to select colors from a list, add new colors, and remove existing 
-# ones interactively, this new code allows a text file to be given as a system argument. If the file exists, it will be used as the base color list. If the file is empty or unreadable, it will use a default base color list.
+# Base colors (protected)
+base_colors = ['blue', 'green', 'yellow', 'white']
+colors = base_colors.copy()
 
-def load_colors_from_file(path):
-    try:
-        with open(path, 'r', encoding='utf-8') as f:
-            return [line.strip() for line in f if line.strip()]
-    except Exception as e:
-        print(f"Error reading color file: {e}")
-        return None
+last_selected = None  # Tracks last selected color
 
-def show_menu(colors, last_selected):
+def show_menu():
     print("\nColor Menu:")
     for i, color in enumerate(colors, start=1):
         print(f"{i}. {color}")
@@ -22,7 +16,7 @@ def show_menu(colors, last_selected):
     if last_selected:
         print(f"(Last selected: {last_selected})")
 
-def get_color_from_input(user_input, colors):
+def get_color_from_input(user_input):
     try:
         index = int(user_input)
         if 1 <= index <= len(colors):
@@ -37,7 +31,7 @@ def get_color_from_input(user_input, colors):
         print("Unknown color name.")
     return None
 
-def add_color_interactive(colors):
+def add_color_interactive():
     name = input("Enter a new color to add: ").strip()
     if not name:
         print("Empty name ignored.")
@@ -48,7 +42,7 @@ def add_color_interactive(colors):
         colors.append(name)
         print(f"Added color: {name}")
 
-def remove_color_interactive(colors, base_colors):
+def remove_color_interactive():
     name = input("Enter a color to remove: ").strip()
     if name.lower() in (c.lower() for c in base_colors):
         print(f"Cannot remove base color '{name}'.")
@@ -61,51 +55,34 @@ def remove_color_interactive(colors, base_colors):
     print(f"Color '{name}' not found.")
 
 def main():
+    global last_selected
     args = sys.argv[1:]
-    default_base = ['blue', 'green', 'yellow', 'white']
 
-    colors = []
-    base_colors = []
-
-    # If a file is provided, use it for base colors
-    if args and os.path.isfile(args[0]):
-        file_colors = load_colors_from_file(args[0])
-        if file_colors:
-            colors = file_colors.copy()
-            base_colors = file_colors.copy()
-            args = args[1:]  # remove file path from remaining args
-        else:
-            print("File empty or unreadable. Using default base colors.")
-    else:
-        colors = default_base.copy()
-        base_colors = default_base.copy()
-
-    last_selected = None
-
-    # Try to select a color if another argument was passed
+    # Try to select from CLI arg if given
     if args:
-        selection = get_color_from_input(args[0], colors)
+        selection = get_color_from_input(args[0])
         if selection:
             last_selected = selection
             print(f"Selected color: {selection}")
 
-    # Main interaction loop
+    # Interactive loop
     while True:
-        show_menu(colors, last_selected)
+        show_menu()
         choice = input("Choose a number, name, or action (a/r/q): ").strip().lower()
 
         if choice == 'q':
             print("Goodbye.")
             break
         elif choice == 'a':
-            add_color_interactive(colors)
+            add_color_interactive()
         elif choice == 'r':
-            remove_color_interactive(colors, base_colors)
+            remove_color_interactive()
         else:
-            selected = get_color_from_input(choice, colors)
+            selected = get_color_from_input(choice)
             if selected:
                 last_selected = selected
                 print(f"Selected color: {selected}")
+                continue
 
 if __name__ == '__main__':
     main()

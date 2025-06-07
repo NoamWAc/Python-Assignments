@@ -10,7 +10,7 @@ def get_unique_filename(base):
     name, ext = os.path.splitext(base)
     i = 1
     while True:
-        new_name = f"{name} ({i}){ext}"
+        new_name = f"{name}({i}){ext}"
         if not os.path.exists(new_name):
             return new_name
         i += 1
