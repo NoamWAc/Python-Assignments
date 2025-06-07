@@ -2,3 +2,5 @@ ash gray
 purple
 dark green
 gold
+cyan
+44

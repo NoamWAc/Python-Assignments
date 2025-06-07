@@ -7,10 +7,11 @@ import os
 def load_colors_from_file(path):
     try:
         with open(path, 'r', encoding='utf-8') as f:
-            return [line.strip() for line in f if line.strip()]
+            return [line.strip() for line in f if line.strip() and not line.strip().isdigit()]
     except Exception as e:
         print(f"Error reading color file: {e}")
         return None
+
 
 def show_menu(colors, last_selected):
     print("\nColor Menu:")
@@ -42,11 +43,15 @@ def add_color_interactive(colors):
     if not name:
         print("Empty name ignored.")
         return
+    if name.isdigit():
+        print("Color names can't be made of only numbers.")
+        return
     if name.lower() in (c.lower() for c in colors):
         print(f"Color '{name}' already exists.")
     else:
         colors.append(name)
         print(f"Added color: {name}")
+
 
 def remove_color_interactive(colors, base_colors):
     name = input("Enter a color to remove: ").strip()
