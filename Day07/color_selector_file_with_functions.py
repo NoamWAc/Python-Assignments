@@ -66,14 +66,6 @@ def remove_color_interactive(colors, base_colors):
     print(f"Color '{name}' not found.")
     return colors
 
-def main():
-    colors, base_colors = initialize_colors()
-    last_selected = None
-    while True:
-    # Show the menu and get user input
-        show_menu(colors, last_selected)
-        colors, last_selected = user_interact(colors, base_colors)
-
 def user_interact(colors, base_colors):
     choice = input("Choose a number, name, or action (a/r/q): ").strip().lower()
     selected = None
@@ -111,5 +103,13 @@ def initialize_colors():
     colors = base_colors.copy()
     return colors,base_colors
 
+def main():
+    colors, base_colors = initialize_colors()
+    last_selected = None
+    while True:
+    # Show the menu and get user input
+        show_menu(colors, last_selected)
+        colors, last_selected = user_interact(colors, base_colors)
+        
 if __name__ == '__main__':
     main()
