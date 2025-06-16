@@ -3,6 +3,8 @@ import os
 
 # In addition to its ability to allow users to select colors from a list, add new colors, and remove existing 
 # ones interactively, this new code allows a text file to be given as a system argument. If the file exists, it will be used as the base color list. If the file is empty or unreadable, it will use a default base color list.
+def test_func():
+    print("It works!")
 
 def load_colors_from_file(path):
     print(f"Loading colors from file: {path}")
@@ -110,6 +112,6 @@ def main():
     # Show the menu and get user input
         show_menu(colors, last_selected)
         colors, last_selected = user_interact(colors, base_colors)
-        
+
 if __name__ == '__main__':
     main()

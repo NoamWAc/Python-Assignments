@@ -1,5 +1,7 @@
-import module_of_color_selector_file_with_function as color_selector
-
+import os
+print("Working directory:", os.getcwd())
+import color_selector
+color_selector.test_funct()
 def main():
     colors, base_colors = color_selector.initialize_colors()
     last_selected = None
@@ -7,6 +9,6 @@ def main():
     # Show the menu and get user input
         color_selector.show_menu(colors, last_selected)
         colors, last_selected = color_selector.user_interact(colors, base_colors)
-        
+
 if __name__ == '__main__':
     main()
