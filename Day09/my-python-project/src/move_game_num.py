@@ -1,6 +1,13 @@
 import random
 
 def move(game_num):
+    """
+    This function modifies the game number by adding or subtracting a random integer between -2 and 2.
+    It ensures the number stays within the range of 1 to 20 by wrapping around if it goes out of bounds.
+    >>> move(10)
+    returns a number between 8 and 12
+    """
+    
     # Move mode: change the number by up to 2
     game_num = game_num + random.randint(-2, 2)
     if game_num < 1:

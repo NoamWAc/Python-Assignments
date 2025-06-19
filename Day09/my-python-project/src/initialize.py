@@ -1,23 +1,17 @@
 import os
 import rng_1_to_20
+import reset_config
 
 def initialize_game():
+    """
+    This function initializes the game by setting up the necessary configurations and generating a new game number.
+    It also ensures that the config module is available and sets default values if it doesn't exist.
+    >>> initialize_game()
+    returns a new game number between 1 and 20
+    """
     
-    # Try to import the config module and reset it. If it doesn't exist, create a default one
-    try:
-        import config
-        config.DEBUG_MODE_IS_ON=False
-        config.MOVE_MODE_IS_ON=False
-    except:
-        config_file_path = "config.py"
-        if not os.path.exists(config_file_path):
-                with open(config_file_path, "w") as f:
-                    f.write("DEBUG_MODE_IS_ON = false\n")
-                    f.write("MOVE_MODE_IS_ON = False\n")
-                print("Created default config.py")
-        else:
-            raise ImportError("config.py exists but import failed. Please check the file for errors.")
-    
+    reset_config.reset_config() # Tries to reset config file debug mode and move mode to false. If the file doesn't exist, create a default one
     game_num = rng_1_to_20.generate_new_num()
-    
     return game_num
+
+

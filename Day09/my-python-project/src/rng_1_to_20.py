@@ -1,5 +1,10 @@
 import random
 def generate_new_num():
+        """
+        This function generates a new random number between 1 and 20.
+        >>> generate_new_num()
+        returns a random integer between 1 and 20
+        """        
         return random.randrange(1,20)
 
 if __name__ == "__main__":
