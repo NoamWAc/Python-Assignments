@@ -1,5 +1,5 @@
 import os
-import random
+import rng_1_to_20
 
 def initialize_game():
     
@@ -18,6 +18,6 @@ def initialize_game():
         else:
             raise ImportError("config.py exists but import failed. Please check the file for errors.")
     
-    # Generates a random number between 1 to 20
-    game_num = random.randrange(1,20)
+    game_num = rng_1_to_20.generate_new_num()
+    
     return game_num
