@@ -2,9 +2,9 @@ import random
 
 def move(game_num):
     """
-    This function modifies the game number by adding or subtracting a random integer between -2 and 2.
+    This function takes an int between 1 and 20, then returns the number modified by adding or subtracting a random integer between -2 and 2.
     It ensures the number stays within the range of 1 to 20 by wrapping around if it goes out of bounds.
-    >>> move(10)
+    >>> move(10) # doctest: +SKIP
     returns a number between 8 and 12
     """
     
@@ -22,5 +22,6 @@ if __name__ == "__main__":
     # This block is for testing purposes only
     game_num = 10  # Example number for testing
     print("Initial game number:", game_num)
+    print("Calling move function...")
     game_num = move(game_num)  # Call the move function to see the effect
     print("New game number after move:", game_num)

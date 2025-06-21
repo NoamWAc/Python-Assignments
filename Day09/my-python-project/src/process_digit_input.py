@@ -9,8 +9,17 @@ def digit_input_check(guessed_num, game_num, move_mode_available):
     This function takes user's guessed number, the game number, and a boolean indicating if move mode is available.
     It returns the (possibly updated) game number based on the user's guess.
 
-    >>> digit_input_check(5, 10, false)
-    returns 10
+    >>> digit_input_check(5, 10, False)
+    Your guess was too low. Give it another try!
+    10
+    >>> digit_input_check(15, 10, False)
+    Your guess was too high. Give it another try!
+    10
+    >>> digit_input_check(25, 10, False)
+    Please only enter a number between 1 and 20!
+    10
+    
+    
     """
     
     # if the input isn't an int, it will convert it to an integer and check if it is correct       
@@ -36,3 +45,9 @@ def digit_input_check(guessed_num, game_num, move_mode_available):
         if config.MOVE_MODE_IS_ON and move_mode_available:
             game_num = move_game_num.move(game_num)
     return game_num
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
+    print("Digit input check complete.") 
+    print("If inputting correct number, the game will either reset or exit")

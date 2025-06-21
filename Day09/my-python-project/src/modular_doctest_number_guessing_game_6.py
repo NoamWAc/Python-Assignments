@@ -21,6 +21,7 @@ def interactive_number_guessing_game():
     import config
     print("To access additional features, enter command when asked to enter your guess. Enter 'help' to see available commands.")
     user_input = ""
+    
     while True:  
         #if debug mode is on, it will print the number
         if config.DEBUG_MODE_IS_ON:
@@ -39,6 +40,24 @@ def interactive_number_guessing_game():
 def test():
     """
     This function is for testing purposes only.
+    >>> process_non_digit_input.non_digit_input_check("help", 11, False) # This should show the help message
+    11
+    >>> process_non_digit_input.non_digit_input_check("n", 11, False) # This should reset the game
+    11
+    >>> process_non_digit_input.non_digit_input_check("s", 11, False) # This should show the current number
+    11
+    >>> game_num = process_non_digit_input.non_digit_input_check("m", 11, False) # This should toggle move mode
+    11
+    >>> game_num = process_non_digit_input.non_digit_input_check("d", 11, False) # This should toggle debug mode
+    11
+    >>> game_num = process_non_digit_input.non_digit_input_check("invalid input", 11, False) # This should restart the loop
+    11
+    >>> game_num = process_non_digit_input.non_digit_input_check("", 11, False) # This should restart the loop
+    11
+    >>> game_num = process_non_digit_input.non_digit_input_check(123, 11, False) # This should raise a TypeError
+    11
+    >>> game_num = process_non_digit_input.non_digit_input_check("x", 11, False) # This should exit the program
+    11
     """
     game_num = initialize.initialize_game()
     print("Initial game number:", game_num)
@@ -47,12 +66,11 @@ def test():
     import rng_1_to_20
     game_num = rng_1_to_20.generate_new_num()
     print("Newly generated game number:", game_num)
-    process_non_digit_input.non_digit_input_check("help") # This should show the help message
-    process_non_digit_input.non_digit_input_check("n") # This should reset the game
-    process_non_digit_input.non_digit_input_check("s") # This should show the current number
-    process_non_digit_input.non_digit_input_check("m") # This should toggle move mode
-    process_non_digit_input.non_digit_input_check("d") # This should toggle debug mode
-    process_non_digit_input.non_digit_input_check("invalid input") # This should restart the loop
-    process_non_digit_input.non_digit_input_check("") # This should restart the loop
-    process_non_digit_input.non_digit_input_check(123) # This should raise a TypeError
-    process_non_digit_input.non_digit_input_check("x") # This should exit the program
+    
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
+    # Uncomment the line below to run the interactive game
+    # interactive_number_guessing_game()
+    test()
