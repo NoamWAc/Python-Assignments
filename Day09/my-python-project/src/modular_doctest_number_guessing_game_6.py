@@ -1,76 +1,26 @@
-import process_non_digit_input
-import process_digit_input
-import initialize
+import base_functions
+import process_input
+import process_input
 
-
-print("Welcome to the interactive number guessing game!")
-
-# Try to import move mode, but if it doesn't exist, just notify and don't enable the option
-move_mode_available = False
-try:
-     import move_game_num
-     move_mode_available = True
-except:
-     print("move_game_num module is not available. Move mode will not be enabled in this instance of the game.")
 
 def interactive_number_guessing_game():
     """
-    This function runs an interactive number guessing game where the user has to guess a number between 1 and 20.
+    This function runs an interactive number guessing game where the user has to guess a randomly-generated number between 1 and 20.
     """
-    game_num = initialize.initialize_game()
-    import config
-    print("To access additional features, enter command when asked to enter your guess. Enter 'help' to see available commands.")
+    game_num = base_functions.initialize_game()
     user_input = ""
     
     while True:  
         #if debug mode is on, it will print the number
-        if config.DEBUG_MODE_IS_ON:
+        if base_functions.DEBUG_MODE_IS_ON:
             print("The number is currently " + str(game_num))
         
         user_input = input("Enter your guess of which integer between 1-20 was generated: ")
         
         if user_input.isdigit() == False: # if the input is not a digit, it will check if it is a special command
-            game_num = process_non_digit_input.non_digit_input_check(user_input, game_num, move_mode_available)
+            game_num = process_input.non_digit_input_check(user_input, game_num)
             continue   
         else:
-            game_num = process_digit_input.digit_input_check(int(user_input), game_num, move_mode_available) # if the input is a digit, it will process it
+            game_num = process_input.digit_input_check(int(user_input), game_num) # if the input is a digit, it will process it
             continue
     raise Exception ("An error occurred. To avoid infinite loop, please troubleshoot or try again.") # if the loop is not working properly, it will raise an exception to avoid infinite loop
-
-def test():
-    """
-    This function is for testing purposes only.
-    >>> process_non_digit_input.non_digit_input_check("help", 11, False) # This should show the help message
-    11
-    >>> process_non_digit_input.non_digit_input_check("n", 11, False) # This should reset the game
-    11
-    >>> process_non_digit_input.non_digit_input_check("s", 11, False) # This should show the current number
-    11
-    >>> game_num = process_non_digit_input.non_digit_input_check("m", 11, False) # This should toggle move mode
-    11
-    >>> game_num = process_non_digit_input.non_digit_input_check("d", 11, False) # This should toggle debug mode
-    11
-    >>> game_num = process_non_digit_input.non_digit_input_check("invalid input", 11, False) # This should restart the loop
-    11
-    >>> game_num = process_non_digit_input.non_digit_input_check("", 11, False) # This should restart the loop
-    11
-    >>> game_num = process_non_digit_input.non_digit_input_check(123, 11, False) # This should raise a TypeError
-    11
-    >>> game_num = process_non_digit_input.non_digit_input_check("x", 11, False) # This should exit the program
-    11
-    """
-    game_num = initialize.initialize_game()
-    print("Initial game number:", game_num)
-    game_num = move_game_num.move(game_num) if move_mode_available else game_num
-    print("New game number after move:", game_num)
-    import rng_1_to_20
-    game_num = rng_1_to_20.generate_new_num()
-    print("Newly generated game number:", game_num)
-    
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(verbose=True)
-    # Uncomment the line below to run the interactive game
-    # interactive_number_guessing_game()
-    test()
