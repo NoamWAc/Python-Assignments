@@ -3,7 +3,9 @@ import base_functions
 import modular_doctest_number_guessing_game_6 as game
 import process_input
 
-doctest.testfile()
+doctest.testmod(base_functions, verbose=True)
+doctest.testmod(process_input, verbose=True)
+doctest.testmod(game, verbose=True)
 
 """
     This function is for testing purposes only.

@@ -21,21 +21,17 @@ def test_number_guessing_game():
     game_num = base_functions.generate_new_num()
     print("Newly generated game number:", game_num)
 
-
-    # Test digit input processing
-    new_game_num = process_input.digit_input_check(str(game_num), game_num)
-    assert new_game_num != game_num, "Game number should change after a valid guess."
-    
+      
     # Test non-digit input processing
     new_game_num = process_input.non_digit_input_check("n", game_num)
-    assert new_game_num != game_num, "Game number should change after reset command."
-    assert base_functions.DEBUG_MODE_IS_ON is False, "Debug mode should be off after reset."
-    assert base_functions.MOVE_MODE_IS_ON is False, "Move mode should be off after reset."
+    assert new_game_num != game_num, "Game number should change after reset command. Chance of one in 20 that a newly generated number will be the same."
+    assert base_functions.CONFIG["DEBUG_MODE_IS_ON"] is False, "Debug mode should be off after reset."
+    assert base_functions.CONFIG["MOVE_MODE_IS_ON"] is False, "Move mode should be off after reset."
     
     # Test move mode functionality
     new_game_num = process_input.non_digit_input_check("m", game_num)
     assert new_game_num == game_num, "Game number should not change if move mode is toggled without a guess."
-    assert base_functions.MOVE_MODE_IS_ON is True, "Move mode should be on after toggling."
+    assert base_functions.CONFIG["MOVE_MODE_IS_ON"] is True, "Move mode should be on after toggling."
     new_game_num = process_input.non_digit_input_check("s", game_num)
     assert new_game_num == game_num, "Game number should not change if move mode is toggled without a guess."
     new_game_num = process_input.non_digit_input_check("help", game_num)
@@ -43,4 +39,7 @@ def test_number_guessing_game():
     new_game_num = process_input.non_digit_input_check("", game_num)
     assert new_game_num == game_num, "Game number should not change if move mode is toggled without a guess."
 
-    
+    # Test digit input processing when move mode is on
+    base_functions.CONFIG["MOVE_MODE_IS_ON"] = True
+    new_game_num = process_input.digit_input_check(str(game_num), game_num)
+    assert new_game_num != game_num, "Game number should change after a valid guess. (Chance of 1 in 3 or 5 that a newly generated number will be the same.)"

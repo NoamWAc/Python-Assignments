@@ -1,8 +1,10 @@
 import random
 
 # Configuration settings for the application
-DEBUG_MODE_IS_ON = False
-MOVE_MODE_IS_ON = False
+CONFIG = {
+    "DEBUG_MODE_IS_ON": False,
+    "MOVE_MODE_IS_ON": False,
+}
 
 def initialize_game():
     """
@@ -27,18 +29,18 @@ def generate_new_num():
 
 def reset_config():
     """
-    This function resets the configuration settings (debug mode and move mode) to their default values (False).
-    >>> DEBUG_MODE_IS_ON = True
-    >>> MOVE_MODE_IS_ON = True
-    >>> print(f"Before reset: DEBUG_MODE_IS_ON = {DEBUG_MODE_IS_ON}, MOVE_MODE_IS_ON = {MOVE_MODE_IS_ON}")
+    Resets config to default values.
+
+    >>> CONFIG["DEBUG_MODE_IS_ON"] = True
+    >>> CONFIG["MOVE_MODE_IS_ON"] = True
+    >>> print(f"Before reset: DEBUG_MODE_IS_ON = {CONFIG['DEBUG_MODE_IS_ON']}, MOVE_MODE_IS_ON = {CONFIG['MOVE_MODE_IS_ON']}")
     Before reset: DEBUG_MODE_IS_ON = True, MOVE_MODE_IS_ON = True
     >>> reset_config()
-    >>> print(f"After reset: DEBUG_MODE_IS_ON = {DEBUG_MODE_IS_ON}, MOVE_MODE_IS_ON = {MOVE_MODE_IS_ON}")
+    >>> print(f"After reset: DEBUG_MODE_IS_ON = {CONFIG['DEBUG_MODE_IS_ON']}, MOVE_MODE_IS_ON = {CONFIG['MOVE_MODE_IS_ON']}")
     After reset: DEBUG_MODE_IS_ON = False, MOVE_MODE_IS_ON = False
     """
-    global DEBUG_MODE_IS_ON, MOVE_MODE_IS_ON
-    DEBUG_MODE_IS_ON = False
-    MOVE_MODE_IS_ON = False
+    CONFIG["DEBUG_MODE_IS_ON"] = False
+    CONFIG["MOVE_MODE_IS_ON"] = False
 
 
 

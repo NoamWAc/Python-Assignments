@@ -12,7 +12,7 @@ def interactive_number_guessing_game():
     
     while True:  
         #if debug mode is on, it will print the number
-        if base_functions.DEBUG_MODE_IS_ON:
+        if base_functions.CONFIG["DEBUG_MODE_IS_ON"]:
             print("The number is currently " + str(game_num))
         
         user_input = input("Enter your guess of which integer between 1-20 was generated: ")

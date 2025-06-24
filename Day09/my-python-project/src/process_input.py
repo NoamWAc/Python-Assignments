@@ -24,35 +24,35 @@ def non_digit_input_check(user_input: str, game_num: int):
     The current number is: 10
     10
     >>> import base_functions
-    >>> base_functions.MOVE_MODE_IS_ON = True
+    >>> base_functions.CONFIG["MOVE_MODE_IS_ON"] = True
     >>> non_digit_input_check("m", 10)
     Move mode is now off. The number will not change anymore.
     10
-    >>> base_functions.MOVE_MODE_IS_ON
+    >>> base_functions.CONFIG["MOVE_MODE_IS_ON"]
     False
     >>> non_digit_input_check("m", 10)
     Move mode is now on. The game's number might increase or decrease by up to 2 after each guess!
     10
-    >>> base_functions.MOVE_MODE_IS_ON
+    >>> base_functions.CONFIG["MOVE_MODE_IS_ON"]
     True
-    >>> base_functions.DEBUG_MODE_IS_ON = False
+    >>> base_functions.CONFIG["DEBUG_MODE_IS_ON"] = False
     >>> non_digit_input_check("d", 10)
     Debug mode is now on.
     10
-    >>> base_functions.DEBUG_MODE_IS_ON
+    >>> base_functions.CONFIG["DEBUG_MODE_IS_ON"]
     True
     >>> non_digit_input_check("d", 10)
     Debug mode is now off.
     10
-    >>> base_functions.DEBUG_MODE_IS_ON
+    >>> base_functions.CONFIG["DEBUG_MODE_IS_ON"]
     False
     >>> non_digit_input_check("help", 10)
     Available commands:
     x - Exit the game
     n - Reset the game
     s - Show the current number
-    m - Toggle move mode (changes the number by up to 2 after each guess)
-    d - Toggle debug mode (if enabled, shows the current number before each guess)
+    m - Toggle move mode (If enabled, changes the number by up to 2 after each guess)
+    d - Toggle debug mode (If enabled, shows the current number before each guess)
     10
     >>> non_digit_input_check("invalid input", 10)
     invalid input
@@ -80,12 +80,12 @@ def non_digit_input_check(user_input: str, game_num: int):
     elif user_input == "s":
         print("The current number is:", game_num)
     elif user_input == "m":
-        base_functions.MOVE_MODE_IS_ON = not base_functions.MOVE_MODE_IS_ON
+        base_functions.CONFIG["MOVE_MODE_IS_ON"] = not base_functions.CONFIG["MOVE_MODE_IS_ON"]
         print("Move mode is now", "on. The game's number might increase or decrease by up to 2 after each guess!" if base_functions.MOVE_MODE_IS_ON
         else "off. The number will not change anymore.")
     elif user_input == "d":
-        base_functions.DEBUG_MODE_IS_ON = not base_functions.DEBUG_MODE_IS_ON
-        print("Debug mode is now "+ ("on." if base_functions.DEBUG_MODE_IS_ON else "off."))
+        base_functions.CONFIG["DEBUG_MODE_IS_ON"] = not base_functions.CONFIG["DEBUG_MODE_IS_ON"]
+        print("Debug mode is now "+ ("on." if base_functions.CONFIG["DEBUG_MODE_IS_ON"] else "off."))
     else:
         print("invalid input")
     
@@ -119,23 +119,23 @@ def digit_input_check(guessed_num, game_num):
     if guessed_num != int:
         guessed_num = int(guessed_num)
     # if the guess is correct, it will inform the user and then ask them if to continue
-    # if yes, reset number, if not, exits the program
+    # if answer is "yes", reset number, if they answer otherwise, exits the program
     if  guessed_num == game_num:
         print("You guessed correctly, the number was " + str(game_num) + "!")
-        if input("Do you want to play again? (enter 'yes' if you do): ") == "yes":
+        if input("Do you want to play again? (enter 'yes' if you do): ").lower() == "yes":
             game_num = base_functions.generate_new_num()
             user_input = ""
         else:
             exit("Thanks for playing!")
     elif guessed_num < 1 or guessed_num > 20:            
-        #if the input isn't between 1 and 20, it will inform the user and ask for another guess
+        # if the input isn't between 1 and 20, it will inform the user and ask for another guess
         print("Please only enter a number between 1 and 20!")
     else:
         # inform the user if their guess is too high or too low and ask for another guess
         # if move mode is on, it will change the number by up to 2
         if guessed_num > game_num: print("Your guess was too high. Give it another try!")
         else: print("Your guess was too low. Give it another try!")
-        if base_functions.MOVE_MODE_IS_ON:
+        if base_functions.CONFIG["MOVE_MODE_IS_ON"]:
             game_num = base_functions.move(game_num)
     
     return game_num
